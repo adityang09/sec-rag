@@ -1,0 +1,24 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: rag
+      POSTGRES_PASSWORD: rag
+      POSTGRES_DB: secrag
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rag -d secrag"]
+      interval: 5s
+      retries: 10
+  api:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://rag:rag@db:5432/secrag
+    ports: ["8000:8000"]
+    depends_on:
+      db: {condition: service_healthy}
+    volumes: ["./data:/app/data", "./eval:/app/eval"]
+volumes:
+  pgdata:

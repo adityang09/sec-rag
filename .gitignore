@@ -1,0 +1,9 @@
+.env
+data/raw/
+__pycache__/
+*.pyc
+.hf/
+eval/*results*
+.venv/
+venv/
+eval/gold*.jsonl

@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+.git
+.gitignore
+data/raw/
+eval/*results*
+eval/gold*.jsonl
+**/__pycache__/
+*.pyc
+.hf/
+.venv/
+venv/
